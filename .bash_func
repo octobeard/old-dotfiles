@@ -26,11 +26,32 @@ function up()
   git submodule update
 }
 
+function oup()
+{
+  git fetch origin
+  STASH_OUTPUT="$(git stash)"
+  git rebase $1 origin/master
+  if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
+    git stash pop
+  fi
+  git submodule update
+}
+
 function upi()
 {
   git fetch upstream
   STASH_OUTPUT="$(git stash)"
   git rebase $1 upstream/master -i
+  if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
+    git stash pop
+  fi
+}
+
+function oupi()
+{
+  git fetch origin
+  STASH_OUTPUT="$(git stash)"
+  git rebase $1 origin/master -i
   if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
     git stash pop
   fi
