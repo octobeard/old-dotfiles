@@ -43,3 +43,4 @@ alias cleanse-music='find . -iname "*.cue" -print0 | xargs -0 rm && find . -inam
 alias gpu="git push upstream"
 alias nvm="~/.nvm/nvm-exec"
 alias ucm="git reset HEAD~ --soft && git reset"
+alias updatehosts="sudo python3 ~/Projects/hosts/updateHostsFile.py -a -r -e fakenews gambling"
