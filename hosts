@@ -1,0 +1,7 @@
+# Custom host records are listed here.
+192.168.0.101 dbox
+0.0.0.0 sw-update.obdev.at
+0.0.0.0 obdev.at
+0.0.0.0 46.4.223.210
+
+# End of custom host records.
