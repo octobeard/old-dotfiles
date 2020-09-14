@@ -73,3 +73,8 @@ function scsynth()
   exec /Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth $*
 }
 
+function runpde()
+{
+    EXEC_PATH="$(pwd)"
+    processing-java --sketch=$EXEC_PATH --output=$EXEC_PATH/build-temp --force --run
+}
