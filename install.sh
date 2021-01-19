@@ -4,5 +4,6 @@ echo "Copying files to home directory! Warning: will overwrite any existing file
 cp -v ./.bash* ~
 cp -v ./.profile ~
 cp -v ./.zshrc ~
+cp -v ./.p10k.zsh
 
 source ~/.profile
