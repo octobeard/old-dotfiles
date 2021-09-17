@@ -51,7 +51,7 @@ function oupi()
 {
   git fetch origin
   STASH_OUTPUT="$(git stash)"
-  git rebase $1 origin/master -i
+  git rebase $1 origin/main -i
   if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
     git stash pop
   fi
