@@ -1,7 +1,7 @@
 #/bin/bash
 LOG_FILE=~/transmission-script.log
-AUDIO_DEST=/Volumes/MediaStore/Audio/music
-MOVIE_DEST=/Volumes/MediaStore/Audio/music
+AUDIO_DEST=/Volumes/MediaStore/Audio/Library
+MOVIE_DEST=/Volumes/MediaStore/Video/Unsorted
 BACKUP_AUDIO_DEST=/Volumes/BitPit/music
 BACKUP_MOVIE_DEST=/Volumes/BitPit/UnsortedMovies
 
