@@ -9,6 +9,7 @@ ln -s $DOTFILE_PATH/.bashrc ~/.bashrc
 ln -s $DOTFILE_PATH/.profile ~/.profile
 ln -s $DOTFILE_PATH/.zshrc ~/.zshrc
 ln -s $DOTFILE_PATH/.p10k.zsh ~/.p10k.zsh
+ln -s $DOTFILE_PATH/.aerospace.toml ~/.aerospace.toml
 
 #echo "Installing oh-my-zsh"
 #sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
