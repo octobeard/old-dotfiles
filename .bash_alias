@@ -184,7 +184,9 @@ alias dbreset='knex migrate:rollback && knex migrate:latest && knex seed:run'
 alias fixtransmission="launchctl setenv TR_CURL_SSL_VERIFY 1"
 alias cleanse-music='find . -iname "*.cue" -print0 | xargs -0 rm && find . -iname "*.log" -print0 | xargs -0 rm && find . -iname "*.m3u" -print0 | xargs -0 rm && find . -iname "*.txt" -print0 | xargs -0 rm'
 alias gpu="git push upstream"
-alias nvm="~/.nvm/nvm-exec"
 alias ucm="git reset HEAD~ --soft && git reset"
 alias updatehosts="sudo python3 ~/Projects/hosts/updateHostsFile.py -a -r -e fakenews gambling"
 alias weather="curl wttr.in/94117"
+alias gr="./gradlew"
+alias vdi="ssh mfleschler@svdi-u2ngpu-238.vdi.zooxlabs.com"
+alias cat='bat --paging=never -p'
