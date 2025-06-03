@@ -397,8 +397,9 @@ function get_branch_name() {
 function up()
 {
   git fetch upstream
+  get_branch_name
   STASH_OUTPUT="$(git stash)"
-  git rebase upstream/master
+  git rebase upstream/master "$BRANCH_NAME"
   if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
     git stash pop
   fi
@@ -419,9 +420,10 @@ function oup()
 
 function upi()
 {
+  get_branch_name
   git fetch upstream
   STASH_OUTPUT="$(git stash)"
-  git rebase upstream/master -i
+  git rebase upstream/master -i "$BRANCH_NAME"
   if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
     git stash pop
   fi
@@ -429,9 +431,10 @@ function upi()
 
 function oupi()
 {
+  get_branch_name
   git fetch origin
   STASH_OUTPUT="$(git stash)"
-  git rebase origin/master -i
+  git rebase origin/master -i "$BRANCH_NAME"
   if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
     git stash pop
   fi
