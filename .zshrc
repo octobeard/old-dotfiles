@@ -97,27 +97,6 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/.profile
 
-export PATH="/usr/local/opt/curl/bin:/usr/local/opt/openssl/bin:/usr/local/bin/python:$PATH"
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-export VAULT_ADDR=https://vault.zooxlabs.com:8200
-export PATH="/opt/homebrew/opt/openjdk@17/bin:/Library/PostgreSQL/17/bin:$PATH"
-export PATH="/opt/homebrew/opt/protobuf@3/bin:$PATH"
-
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Marvel/IDM frontend vars
-export IDM_BACKEND_URL=http://localhost:8084
-export MARVEL_BACKEND_URL=http://localhost:8081
-
-source Projects/driving/devx/shells/activate
