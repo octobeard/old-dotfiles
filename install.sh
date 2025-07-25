@@ -28,5 +28,8 @@ create_symlink "$DOTFILE_PATH"/.aerospace.toml ~/.aerospace.toml
 #echo "Installing p10k"
 #git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
+#echo "Installing homebrew"
+#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 #echo "Installed. Be sure to run 'p10k configure' once everything is up"
 

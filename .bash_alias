@@ -186,7 +186,8 @@ alias cleanse-music='find . -iname "*.cue" -print0 | xargs -0 rm && find . -inam
 alias gpu="git push upstream"
 alias ucm="git reset HEAD~ --soft && git reset"
 alias updatehosts="sudo python3 ~/Projects/hosts/updateHostsFile.py -a -r -e fakenews gambling"
-alias weather="curl wttr.in/94117"
+alias weather="curl wttr.in"
 alias gr="./gradlew"
 alias vdi="ssh mfleschler@svdi-u2ngpu-238.vdi.zooxlabs.com"
 alias cat='bat --paging=never -p'
+alias vim="nvim"

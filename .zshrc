@@ -62,7 +62,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git node npm brew extract z rails tmux tmuxinator web-search gradle-completion)
+plugins=(git node npm brew extract z rails web-search)
 
 source $ZSH/oh-my-zsh.sh
 

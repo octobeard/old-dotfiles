@@ -57,12 +57,12 @@ automatically-unhide-macos-hidden-apps = false
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-    inner.horizontal = 5
-    inner.vertical =   5
-    outer.left =       5
-    outer.bottom =     5
-    outer.top =        5
-    outer.right =      5
+    inner.horizontal = 2
+    inner.vertical =   2
+    outer.left =       2
+    outer.bottom =     2
+    outer.top =        2
+    outer.right =      2
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -128,9 +128,9 @@ automatically-unhide-macos-hidden-apps = false
     alt-g = 'workspace General'
     alt-i = 'workspace Idea'
     alt-m = 'workspace Music'
-    alt-p = 'workspace Post'
+    alt-a = 'workspace Ableton'
     alt-t = 'workspace iTerm'
-    alt-v = 'workspace VDI'
+    alt-v = 'workspace Video'
     alt-z = 'workspace Zoom'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -144,9 +144,9 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-g = 'move-node-to-workspace General'
     alt-shift-i = 'move-node-to-workspace Idea'
     alt-shift-m = 'move-node-to-workspace Music'
-    alt-shift-p = 'move-node-to-workspace Post'
+    alt-shift-a = 'move-node-to-workspace Ableton'
     alt-shift-t = 'move-node-to-workspace iTerm'
-    alt-shift-v = 'move-node-to-workspace VDI'
+    alt-shift-v = 'move-node-to-workspace Video'
     alt-shift-z = 'move-node-to-workspace Zoom'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
