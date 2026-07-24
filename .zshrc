@@ -107,7 +107,8 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 export VAULT_ADDR=https://vault.zooxlabs.com:8200
-export PATH="/opt/homebrew/opt/openjdk@17/bin:/Library/PostgreSQL/17/bin:$PATH"
+export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+export PATH="/Library/PostgreSQL/17/bin:$PATH"
 export PATH="/opt/homebrew/opt/protobuf@3/bin:$PATH"
 
 
@@ -120,4 +121,35 @@ export NVM_DIR="$HOME/.nvm"
 export IDM_BACKEND_URL=http://localhost:8084
 export MARVEL_BACKEND_URL=http://localhost:8081
 
-source Projects/driving/devx/shells/activate
+source ~/Projects/driving/devx/shells/activate
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/mfleschler/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+export PATH="$HOME/.local/bin:$PATH"
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Setting PATH for Python 3.11
+# The original version is saved in .zprofile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
+export PATH
+
+# SSH Agent configuration
+# Start ssh-agent if not running
+if ! pgrep -x "ssh-agent" > /dev/null; then
+    eval "$(ssh-agent -s)" > /dev/null
+fi
+
+# Load SSH keys from keychain
+ssh-add --apple-load-keychain 2>/dev/null
+
+# Clear stuck xterm mouse-reporting mode at every prompt.
+# A TUI/tmux/vim session over SSH turns on mouse tracking; if the connection
+# drops abruptly the "off" sequences never arrive, leaving iTerm reporting every
+# mouse move as input (e.g. \e[<35;col;rowM). Running this in precmd resets the
+# state the instant we land back at a local prompt — it doesn't affect mouse
+# support inside SSH/tmux/vim, which re-enable it as needed.
+disable_mouse_report() { printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1015l' }
+precmd_functions+=(disable_mouse_report)

@@ -1,6 +1,6 @@
 # Place a copy of this config to ~/.aerospace.toml
 # After that, you can edit ~/.aerospace.toml to your liking
-
+config-version = 2
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
@@ -57,12 +57,12 @@ automatically-unhide-macos-hidden-apps = false
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-    inner.horizontal = 5
-    inner.vertical =   5
-    outer.left =       5
-    outer.bottom =     5
-    outer.top =        5
-    outer.right =      5
+    inner.horizontal = 2
+    inner.vertical =   2
+    outer.left =       2
+    outer.bottom =     2
+    outer.top =        2
+    outer.right =      2
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -123,12 +123,14 @@ automatically-unhide-macos-hidden-apps = false
     alt-3 = 'workspace 3-Scratch'
     alt-4 = 'workspace 4-Scratch'
     alt-5 = 'workspace 5-Scratch'
+    alt-c = 'workspace Cursor'
     alt-e = 'workspace Email'
     alt-f = 'workspace Fun'
     alt-g = 'workspace General'
     alt-i = 'workspace Idea'
     alt-m = 'workspace Music'
     alt-p = 'workspace Post'
+    alt-r = 'workspace Remote'
     alt-t = 'workspace iTerm'
     alt-v = 'workspace VDI'
     alt-z = 'workspace Zoom'
@@ -139,12 +141,14 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-3 = 'move-node-to-workspace 3-Scratch'
     alt-shift-4 = 'move-node-to-workspace 4-Scratch'
     alt-shift-5 = 'move-node-to-workspace 5-Scratch'
+    alt-shift-c = 'move-node-to-workspace Cursor'
     alt-shift-e = 'move-node-to-workspace Email'
     alt-shift-f = 'move-node-to-workspace Fun'
     alt-shift-g = 'move-node-to-workspace General'
     alt-shift-i = 'move-node-to-workspace Idea'
     alt-shift-m = 'move-node-to-workspace Music'
     alt-shift-p = 'move-node-to-workspace Post'
+    alt-shift-r = 'move-node-to-workspace Remote'
     alt-shift-t = 'move-node-to-workspace iTerm'
     alt-shift-v = 'move-node-to-workspace VDI'
     alt-shift-z = 'move-node-to-workspace Zoom'
@@ -183,4 +187,16 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
   if.app-id = 'com.apple.Preview'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.TextEdit'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.Notes'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.reminders'
   run = 'layout floating'

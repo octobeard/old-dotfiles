@@ -394,7 +394,7 @@ function get_branch_name() {
   echo "$VAR"
 }
 
-function up()
+function old_up()
 {
   git fetch upstream
   get_branch_name
@@ -406,7 +406,7 @@ function up()
   git submodule update
 }
 
-function oup()
+function old_oup()
 {
   get_branch_name
   git fetch origin
@@ -418,7 +418,26 @@ function oup()
   git submodule update
 }
 
-function upi()
+function up()
+{
+  STASH_OUTPUT="$(git stash)"
+  git pull --rebase origin master
+  if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
+    git stash pop
+  fi
+}
+
+function upmain()
+{
+  STASH_OUTPUT="$(git stash)"
+  git pull --rebase origin main
+  if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
+    git stash pop
+  fi
+}
+
+
+function upi_old()
 {
   get_branch_name
   git fetch upstream
@@ -429,7 +448,7 @@ function upi()
   fi
 }
 
-function oupi()
+function upi()
 {
   get_branch_name
   git fetch origin
@@ -444,3 +463,93 @@ function fdelete()
 {
     find . -iname "$1" -print0 | xargs -0 -I {} rm {}
 }
+
+function gpo()
+{
+  get_branch_name
+  git push origin $BRANCH_NAME $*
+}
+
+whatsdeployed() {
+  # --- Configure your apps here or via WHATSDEPLOYED_APPS env var ---
+  local -a APPS
+  APPS=(marvel2-dev marvel2-staging marvel2-prod idm-dev idm-staging idm-prod hubble-ui-staging hubble-ui-prod sems-dev sems-staging sems-prod)
+
+
+  local chosen="${1:-}"
+
+  # --- Pick app if not provided ---
+  if [[ -z $chosen ]]; then
+    echo "Choose application/environment (type a number and press Enter):"
+    local i=1
+    for a in "${APPS[@]}"; do printf "%2d) %s\n" $i "$a"; ((i++)); done
+    local n; read -r "?Selection: " n
+    if [[ $n = <-> ]] && (( n >= 1 && n <= ${#APPS[@]} )); then
+      chosen="${APPS[n]}"
+    else
+      echo "Invalid selection. Aborting." >&2
+      return 1
+    fi
+  fi
+
+  # Validate against the allowed list (helps catch typos)
+  local ok=0 a
+  for a in "${APPS[@]}"; do [[ $a == "$chosen" ]] && ok=1 && break; done
+  (( ok )) || { echo "Unknown app '$chosen'. Allowed: ${APPS[*]}" >&2; return 2; }
+
+  # --- Call ArgoCD and extract the revision ---
+  local out rc
+  out="$(argocd app get "$chosen" -o json 2>&1)"; rc=$?
+  if (( rc != 0 )); then
+    echo "$out" >&2
+    return $rc
+  fi
+
+  # Print just the revision (stdout), so you can pipe it to git, etc.
+  targetRevision="$(jq -r '.status.operationState.syncResult.source.targetRevision // empty' <<<"$out")"
+  sha="$(jq -r '.status.operationState.syncResult.revision // empty' <<<"$out")"
+  echo "Target revision: $targetRevision  SHA: $sha"
+}
+
+migration() {
+  local arg="${1// /_}" # Replace spaces with underscores
+  echo "V$(date +"%Y.%m.%d.%H%M").0__${arg}.sql"
+}
+
+# Create a new, freshly rebased branch off of master.
+#
+# Usage:
+#
+#   nb user/mfleschler/sems-dashboards
+#   nb user/mfleschler/sems-dashboards -o   # track origin/<branch_name>
+
+function nb()
+{
+  local BRANCH_NAME=""
+  local USE_ORIGIN=0
+
+  for arg in "$@"; do
+    case "$arg" in
+      -o|--origin)
+        USE_ORIGIN=1
+        ;;
+      *)
+        BRANCH_NAME="$arg"
+        ;;
+    esac
+  done
+
+  if [ -z "$BRANCH_NAME" ]; then
+    echo "Usage: nb <branch_name> [-o|--origin]"
+    return 1
+  fi
+
+  co master && up || return 1
+
+  if [ "$USE_ORIGIN" -eq 1 ]; then
+    co -b "$BRANCH_NAME" "origin/$BRANCH_NAME"
+  else
+    co -b "$BRANCH_NAME"
+  fi
+}
+

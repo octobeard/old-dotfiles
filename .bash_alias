@@ -165,8 +165,8 @@ alias cm="git commit -m "
 alias cma="git commit -a -m "
 alias continue="git add . && git rebase --continue"
 alias abort="git rebase --abort"
-alias amend="git commit -a --amend"
-alias gpo="git push origin"
+alias amend="git commit -a --amend --no-edit"
+# alias gpo="git push origin"
 alias co="git checkout"
 alias ft="ff '*' | xargs grep -i"
 alias glog='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit --topo-order'
@@ -188,5 +188,17 @@ alias ucm="git reset HEAD~ --soft && git reset"
 alias updatehosts="sudo python3 ~/Projects/hosts/updateHostsFile.py -a -r -e fakenews gambling"
 alias weather="curl wttr.in/94117"
 alias gr="./gradlew"
-alias vdi="ssh mfleschler@svdi-u2ngpu-238.vdi.zooxlabs.com"
+alias vdi="ssh -L 8250:localhost:8250 vdi"
 alias cat='bat --paging=never -p'
+alias ssh-restore='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
+alias vim="nvim"
+alias v="nvim"
+alias wd="whatsdeployed"
+
+alias idm="cd ~/Projects/driving/sim/marvel/kong/ && ./scripts/test-dbs/start-idm.sh"
+alias marvel="cd ~/Projects/driving/sim/marvel/kong/ && ./scripts/test-dbs/start-marvel.sh"
+alias sems="cd ~/Projects/driving/sim/marvel/kong/ && ./scripts/test-dbs/start-sems.sh"
+
+alias sems-data="python3 ~/Projects/driving/experimental/mfleschler/sems-data-generator.py"
+alias simlogin="zaccess aws -path aws-zooxlabs-roles -get Software_Simulation"
+
