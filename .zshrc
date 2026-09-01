@@ -153,3 +153,6 @@ ssh-add --apple-load-keychain 2>/dev/null
 # support inside SSH/tmux/vim, which re-enable it as needed.
 disable_mouse_report() { printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1015l' }
 precmd_functions+=(disable_mouse_report)
+
+# To customize prompt, run `p10k configure` or edit ~/Projects/old-dotfiles/.p10k.zsh.
+[[ ! -f ~/Projects/old-dotfiles/.p10k.zsh ]] || source ~/Projects/old-dotfiles/.p10k.zsh
