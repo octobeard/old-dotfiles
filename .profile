@@ -7,3 +7,5 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 source ~/.bash_alias
 source ~/.bash_func
+
+. "$HOME/.local/bin/env"
