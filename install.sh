@@ -22,11 +22,22 @@ create_symlink "$DOTFILE_PATH"/.zshrc ~/.zshrc
 create_symlink "$DOTFILE_PATH"/.p10k.zsh ~/.p10k.zsh
 create_symlink "$DOTFILE_PATH"/.aerospace.toml ~/.aerospace.toml
 
-echo "Installing oh-my-zsh"
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+confirm() {
+  local reply
+  read -r -p "$1 [y/N] " reply
+  [[ "$reply" =~ ^[Yy]([Ee][Ss])?$ ]]
+}
 
-echo "Installing p10k"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+if confirm "Install oh-my-zsh?"; then
+  echo "Installing oh-my-zsh"
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+if confirm "Install p10k?"; then
+  echo "Installing p10k"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+fi
 
 echo "Installed. Be sure to run 'p10k configure' once everything is up"
 
+source ~/.profile

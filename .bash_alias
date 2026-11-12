@@ -195,10 +195,11 @@ alias vim="nvim"
 alias v="nvim"
 alias wd="whatsdeployed"
 
-alias idm="cd ~/Projects/driving/sim/marvel/kong/ && ./scripts/test-dbs/start-idm.sh"
-alias marvel="cd ~/Projects/driving/sim/marvel/kong/ && ./scripts/test-dbs/start-marvel.sh"
-alias sems="cd ~/Projects/driving/sim/marvel/kong/ && ./scripts/test-dbs/start-sems.sh"
 
-alias sems-data="python3 ~/Projects/driving/experimental/mfleschler/sems-data-generator.py"
+alias idm='"$(git rev-parse --show-toplevel)"/sim/marvel/kong/scripts/test-dbs/start-idm.sh'
+alias marvel='"$(git rev-parse --show-toplevel)"/sim/marvel/kong/scripts/test-dbs/start-marvel.sh'
+alias sems='"$(git rev-parse --show-toplevel)"/sim/marvel/kong/scripts/test-dbs/start-sems.sh'
+alias sems-data='python3 "$(git rev-parse --show-toplevel)"/experimental/mfleschler/sems-data-generator.py'
+
 alias simlogin="zaccess aws -path aws-zooxlabs-roles -get Software_Simulation"
 

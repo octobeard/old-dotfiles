@@ -1,9 +1,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -121,7 +121,7 @@ export NVM_DIR="$HOME/.nvm"
 export IDM_BACKEND_URL=http://localhost:8084
 export MARVEL_BACKEND_URL=http://localhost:8081
 
-source ~/Projects/driving/devx/shells/activate
+source ~/driving/master/devx/shells/activate
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/mfleschler/.docker/completions $fpath)
 autoload -Uz compinit
@@ -154,5 +154,10 @@ ssh-add --apple-load-keychain 2>/dev/null
 disable_mouse_report() { printf '\e[?1000l\e[?1002l\e[?1003l\e[?1006l\e[?1015l' }
 precmd_functions+=(disable_mouse_report)
 
-# To customize prompt, run `p10k configure` or edit ~/Projects/old-dotfiles/.p10k.zsh.
-[[ ! -f ~/Projects/old-dotfiles/.p10k.zsh ]] || source ~/Projects/old-dotfiles/.p10k.zsh
+# >>> driving worktrees >>>
+export DRIVING_ROOT="/Users/mfleschler/driving"
+export PYTHONPYCACHEPREFIX="$HOME/.cache/pycache"
+export PATH="/Users/mfleschler/driving/master/experimental/cyxu/scripts/worktree/bin:$PATH"
+[ -f "/Users/mfleschler/driving/master/experimental/cyxu/scripts/worktree/bin/wt-cd.sh" ] && source "/Users/mfleschler/driving/master/experimental/cyxu/scripts/worktree/bin/wt-cd.sh"
+# <<< driving worktrees <<<
+export WT_PREFIX=user/mfleschler

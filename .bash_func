@@ -420,11 +420,7 @@ function old_oup()
 
 function up()
 {
-  STASH_OUTPUT="$(git stash)"
-  git pull --rebase origin master
-  if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
-    git stash pop
-  fi
+  git pull --rebase --autostash origin master
 }
 
 function upmain()
@@ -452,11 +448,7 @@ function upi()
 {
   get_branch_name
   git fetch origin
-  STASH_OUTPUT="$(git stash)"
-  git rebase origin/master -i "$BRANCH_NAME"
-  if [ "$STASH_OUTPUT" != "No local changes to save" ]; then
-    git stash pop
-  fi
+  git rebase -i --autostash origin/master "$BRANCH_NAME"
 }
 
 function fdelete()
@@ -516,15 +508,16 @@ migration() {
   echo "V$(date +"%Y.%m.%d.%H%M").0__${arg}.sql"
 }
 
-# Create a new, freshly rebased branch off of master.
+# Sync master/, then create a worktree at $DRIVING_ROOT/wt/<dir> on a new branch and cd into it.
 #
 # Usage:
 #
-#   nb user/mfleschler/sems-dashboards
-#   nb user/mfleschler/sems-dashboards -o   # track origin/<branch_name>
+#   nw sems-dash user/mfleschler/sems-dashboards
+#   nw sems-dash user/mfleschler/sems-dashboards -o   # track origin/<branch_name>
 
-function nb()
+function nw()
 {
+  local DIR_NAME=""
   local BRANCH_NAME=""
   local USE_ORIGIN=0
 
@@ -534,22 +527,43 @@ function nb()
         USE_ORIGIN=1
         ;;
       *)
-        BRANCH_NAME="$arg"
+        if [ -z "$DIR_NAME" ]; then
+          DIR_NAME="$arg"
+        else
+          BRANCH_NAME="$arg"
+        fi
         ;;
     esac
   done
 
-  if [ -z "$BRANCH_NAME" ]; then
-    echo "Usage: nb <branch_name> [-o|--origin]"
+  if [ -z "$DIR_NAME" ] || [ -z "$BRANCH_NAME" ]; then
+    echo "Usage: nw <dir_name> <branch_name> [-o|--origin]"
     return 1
   fi
 
-  co master && up || return 1
+  local MAIN="$DRIVING_ROOT/master"
+  local WT="$DRIVING_ROOT/wt/$DIR_NAME"
+
+  if [ -e "$WT" ]; then
+    echo "nw: $WT already exists"
+    return 1
+  fi
+
+  wt-sync || return 1
+  mkdir -p "$DRIVING_ROOT/wt"
 
   if [ "$USE_ORIGIN" -eq 1 ]; then
-    co -b "$BRANCH_NAME" "origin/$BRANCH_NAME"
+    git -C "$MAIN" fetch origin "${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}" || return 1
+    git -C "$MAIN" worktree add -b "$BRANCH_NAME" --track "$WT" "origin/$BRANCH_NAME" || return 1
   else
-    co -b "$BRANCH_NAME"
+    git -C "$MAIN" worktree add -b "$BRANCH_NAME" --no-track "$WT" origin/master || return 1
   fi
+
+  local f
+  for f in .bazelrc.user .env; do
+    [ -e "$MAIN/$f" ] && ln -s "$MAIN/$f" "$WT/$f"
+  done
+
+  cd "$WT"
 }
 
